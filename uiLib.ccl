@@ -1,0 +1,30 @@
+#include ccl/jui/JUI.cl2
+var UI;
+{
+    def init(){
+        UI = [
+            Button: JUI.control("Button"),
+            TextField: JUI.control("TextField"),
+            TextArea: JUI.control("TextArea"),
+            
+            VerticalLayout: JUI.layout("VBox"),
+            HorizontalLayout: JUI.layout("HBox")
+        ];
+        
+        def findElement(JUI, UI, elementType, elementName){
+            var l = UI[elementName];
+            if(l.type == "error"){
+                l = JUI[elementType](elementName);
+                UI.push(l, elementName);
+            }
+            return l;
+        }
+    
+        UI.push(findElement.bind(JUI, UI, "layout"), "layout");
+        UI.push(findElement.bind(JUI, UI, "control"), "control");
+        UI.push(findElement.bind(JUI, UI, "chart"), "chart");
+    }
+    
+    UI = init;
+    
+}

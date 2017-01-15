@@ -1,0 +1,22 @@
+#include ccl/jui/Launcher.cl2
+{
+    def LauncherBase(this){
+        var oldLaunch = this.launch;
+        def newLaunch(old, method, args){
+            if(args == undefined){
+                args = [];
+            }
+            def onLaunch(method, win){
+                win.setProperty(
+                    "setContent", 
+                    <c|win.setScene(JUI.Scene(c))>
+                );
+                method(win);
+            }
+            old(onLaunch.bind(method), args);
+        }
+        this.setProperty("launch", newLaunch.bind(oldLaunch));
+    }
+    
+    Launcher = Launcher.extend(LauncherBase);
+}

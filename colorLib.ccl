@@ -1,0 +1,53 @@
+#include <struct>
+
+var Color;
+{
+def ColorBase(this){
+    this.push(this.r, "red");
+    this.push(this.g, "green");
+    this.push(this.b, "blue");
+    
+    def calc(this, nt, nv){
+        return nt*nv/this.colorType;
+    }
+    
+    def asType(calc, this, nt){
+        return Color(
+            calc(this, nt, this.r),
+            calc(this, nt, this.g),
+            calc(this, nt, this.b),
+            nt
+        );
+    }
+    
+    this.push(asType._.bind(calc, this), "asType");
+    
+    def as(this, method){
+        return method(
+            this.r,
+            this.g,
+            this.b
+        );
+    }
+    
+    this.push(as._.bind(this), "as");
+    
+    def toRgbString(this){
+        return  "rgb(" &
+                integer(this.r).toString() & "," &
+                integer(this.g).toString() & "," &
+                integer(this.b).toString() & ")";
+    }
+    
+    this.push(toRgbString.bind(this), "toRgbString");
+    
+}
+Color = struct(["r", "g", "b", "colorType"]).extend(ColorBase._);
+}
+
+Color.setProperty("TYPE1", 1);
+Color.setProperty("TYPE255", 255);
+
+Color.setProperty("RED",Color(1,0,0,Color.TYPE1));
+Color.setProperty("GREEN",Color(0,1,0,Color.TYPE1));
+Color.setProperty("BLUE",Color(0,0,1,Color.TYPE1));

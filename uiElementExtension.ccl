@@ -1,0 +1,23 @@
+def UIElementExtension(this){
+    
+    def setColor(this, cssProperty, color){
+        this(
+            "style" =>  this.getStyle() & 
+                        cssProperty & ":" &
+                        color.asType(255).toRgbString() & ";"
+        );
+        return this;
+    }
+    
+    def addColorOption(this, setColor, optionName, cssProperty){
+        var uc   = optionName.charAt(0).toString().toUpperCase();
+        var name = "set" & uc & optionName.substring(1, optionName.length());
+        this.setProperty(name, setColor.bind(this, cssProperty));
+    }
+    
+    this.setProperty("addColorOption", addColorOption.bind(this, setColor));
+    
+    this.addColorOption("textColor", "-fx-text-fill");
+    this.addColorOption("backgroundColor", "-fx-background-color");
+    
+}
