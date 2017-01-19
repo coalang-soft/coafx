@@ -2,10 +2,12 @@
 
 var Color;
 {
-def ColorBase(this){
+def ColorBase(this, r,g,b,a, colorType:1){
     this.push(this.r, "red");
     this.push(this.g, "green");
     this.push(this.b, "blue");
+    this.push(this.a, "alpha");
+    this.push(colorType, "colorType");
     
     def calc(this, nt, nv){
         return nt*nv/this.colorType;
@@ -42,7 +44,7 @@ def ColorBase(this){
     this.push(toRgbString.bind(this), "toRgbString");
     
 }
-Color = struct(["r", "g", "b", "colorType"]).extend(ColorBase._);
+Color = struct(["r", "g", "b", "a"]).extend(ColorBase._);
 }
 
 Color.setProperty("TYPE1", 1);

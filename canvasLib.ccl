@@ -1,0 +1,23 @@
+#include ccl/jui/JUI.cl2
+
+def Canvas(width:800,height:600){
+    var c = java("javafx.scene.canvas.Canvas")(width,height);
+    var gfx = c.getGraphicsContext2D();
+    
+    def setColor(old, color){
+        if(color.type == "array"){
+            color = color.asType(1);
+            color = java("javafx.scene.paint.Color")(color.r,color.g,color.b,1);
+        }
+        old(color);
+    }
+    
+    gfx.setProperty("setFill", setColor.bind(gfx.setFill));
+    gfx.setProperty("setStroke", setColor.bind(gfx.setStroke));
+    
+    gfx.setProperty("getWidth", c.getWidth);
+    gfx.setProperty("getHeight", c.getHeight);
+    gfx.setProperty("canvas", c);
+    
+    return gfx;
+}
