@@ -2,10 +2,13 @@
 
 var Color;
 {
-def ColorBase(this, r,g,b,a, colorType:1){
+def ColorBase(this, r,g,b,a:1, colorType:1){
     this.push(this.r, "red");
     this.push(this.g, "green");
     this.push(this.b, "blue");
+    if(this.a.type == "error"){
+        this.setProperty("a", a);
+    }
     this.push(this.a, "alpha");
     this.push(colorType, "colorType");
     
@@ -18,6 +21,7 @@ def ColorBase(this, r,g,b,a, colorType:1){
             calc(this, nt, this.r),
             calc(this, nt, this.g),
             calc(this, nt, this.b),
+            calc(this, nt, this.a),
             nt
         );
     }
