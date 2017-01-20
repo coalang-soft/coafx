@@ -1,0 +1,17 @@
+def YouTubeEmbed(youTubeVideoKey){
+    return "https://www.youtube.com/embed/" & youTubeVideoKey;
+}
+
+{
+    var youTubeUrlRegex = /(http(s)?:\/\/)?(www.)?youtube.com\/watch\\?(.*)v=([^&]*).*/;
+    def byNormalUrl(YouTubeEmbed, youTubeUrlRegex, normalYouTubeUrl){
+        var m = youTubeUrlRegex.match(normalYouTubeUrl);
+        if(m.is){
+            return YouTubeEmbed(m.group(4));
+        }else{
+            throw youTubeUrlRegex & " is not a valid YouTube watch URL!";
+        }
+    }
+    
+    YouTubeEmbed.setProperty("byNormalUrl", byNormalUrl.bind(YouTubeEmbed, youTubeUrlRegex));
+}

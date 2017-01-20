@@ -1,0 +1,30 @@
+#include ccl/jui/JUI.cl2
+#include ccl/jui/Launcher.cl2
+#include ccl/jui/SimpleChart.cl2
+
+def FastDisplay(componentCreater, onTop:true){
+    def startFunction(onTop, componentCreater, stage){
+        stage.setScene(JUI.Scene(componentCreater()));
+        stage.show();
+        stage.setAlwaysOnTop(onTop);
+    }
+    Launcher().launch(startFunction.bind(onTop, componentCreater));
+}
+
+{
+    def chart(FastDisplay, func, to:100, from:integer("-100")){
+        if(func.type == "array"){
+            to = func.length() - 1;
+            from = 0;
+        }
+        FastDisplay(SimpleChart.bind(
+            <x|x>, func, to,from
+        ));
+    }
+    FastDisplay.setProperty("chart", chart.bind(FastDisplay));
+    
+    def prompt(message:""){
+        return java("javax.swing.JOptionPane").showInputDialog(message);
+    }
+    FastDisplay.setProperty("prompt", prompt);
+}
