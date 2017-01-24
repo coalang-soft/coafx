@@ -8,7 +8,7 @@ def FastDisplay(componentCreater, onTop:true){
         stage.show();
         stage.setAlwaysOnTop(onTop);
     }
-    Launcher().launch(startFunction.bind(onTop, componentCreater));
+    Launcher().launch(startFunction.bind(onTop, componentCreater), []);
 }
 
 {
