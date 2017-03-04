@@ -1,3 +1,7 @@
 github ccldev use-ccl
+remove ./coafx/.git
+remove ./coafx/.gitattributes
+remove ./coafx/.gitignore
+remove ./coafx/mulpam.txt
 dir-create ./use-ccl/ccl/fx
 dir-copy ./coafx ./use-ccl/ccl/fx
