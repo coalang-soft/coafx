@@ -1,1 +1,3 @@
 github ccldev use-ccl
+dir-create ./use-ccl/ccl/fx
+dir-copy ./coafx ./use-ccl/ccl/fx
