@@ -26,7 +26,7 @@ def ColorBase(this, r,g,b,a:1, colorType:1){
         );
     }
     
-    this.push(asType._.bind(calc, this), "asType");
+    this.push(asType.bind(calc, this), "asType");
     
     def as(this, method){
         return method(
@@ -36,7 +36,7 @@ def ColorBase(this, r,g,b,a:1, colorType:1){
         );
     }
     
-    this.push(as._.bind(this), "as");
+    this.push(as.bind(this), "as");
     
     def toRgbString(this){
         return  "rgb(" &
